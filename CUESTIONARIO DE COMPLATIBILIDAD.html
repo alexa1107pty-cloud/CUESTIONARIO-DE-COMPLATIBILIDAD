@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="futurista">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPDC • Cuestionario de Compatibilidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Staatliches&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#08111a; --bg2:#0a1e2f; --acc:#00f6ff; --acc2:#ff5e5e; --ink:#dffbff;
+  --card:#0a1620cc; --bdr:#00f6ff; --shadow:0 0 25px rgba(0,246,255,.35);
+  --badge:#0cc; --btn:#013b41;
+  --bg-url: url('C:/Users/melan/Downloads/PACIFIC RIM ROL/fondo.jpg');
+}
+*{box-sizing:border-box;}
+html,body{height:100%; margin:0; padding:0;}
+body{
+  font-family:'Orbitron',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color:var(--ink);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:flex; flex-direction:column; align-items:center;
+}
+.holo-bg::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image: var(--bg-url);
+  background-size:cover; background-position:center;
+  mix-blend-mode:screen; opacity:.25;
+  filter:contrast(1.1) brightness(1.15) hue-rotate(170deg) saturate(1.2);
+  animation: drift 24s linear infinite alternate;
+  pointer-events:none; z-index:-2;
+}
+@keyframes drift{0%{transform:scale(1.05) translateY(-2%)}100%{transform:scale(1.1) translateY(2%)}}
+
+header{
+  display:flex; gap:16px; align-items:center; justify-content:space-between;
+  padding:18px 24px; border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky; top:0; backdrop-filter:blur(6px);
+  background:linear-gradient(180deg, rgba(0,0,0,.45), transparent); z-index:5;
+  width:100%;
+}
+.ppdc{display:flex; align-items:center; gap:12px;}
+.logo-img{width:42px; height:42px; object-fit:contain;}
+.titles h1{margin:0; font-size:1.4rem; letter-spacing:.2rem; color:var(--acc);}
+.titles small{opacity:.8; letter-spacing:.18rem;}
+.actions .btn{
+  border:1px solid var(--bdr); background:var(--btn); color:var(--ink);
+  padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700;
+  box-shadow:var(--shadow); text-transform:uppercase; text-decoration:none;
+}
+.actions .btn:hover{filter:brightness(1.15);}
+
+main{padding:26px 20px 60px; max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center;}
+.container{background:var(--card); padding:20px; border-radius:16px; width:100%; max-width:900px; box-shadow:var(--shadow);}
+.question{margin-bottom:16px;}
+label{display:block; margin-bottom:6px;}
+select,input[type="text"]{width:100%; padding:10px; border-radius:8px; border:1px solid var(--bdr); background:#0009; color:var(--ink); font-family:inherit;}
+button{width:100%; padding:12px; font-size:16px; background-color:var(--btn); color:var(--ink); border:none; border-radius:8px; cursor:pointer; margin-bottom:12px; font-weight:700; box-shadow:var(--shadow);}
+button:hover{filter:brightness(1.15);}
+
+table{width:100%; border-collapse:collapse; margin-top:20px;}
+th, td{border:1px solid var(--acc); padding:8px; text-align:center;}
+th{background-color:var(--btn);}
+</style>
+</head>
+<body class="holo-bg">
+
+<header>
+  <div class="ppdc">
+    <img src="C:/Users/melan/Downloads/PACIFIC RIM ROL/LOGO PPDC.jpg" class="logo-img" alt="Logo PPDC">
+    <div class="titles">
+      <h1>Compatibilidad Pilotos</h1>
+      <small>PAN PACIFIC DEFENSE CORPS</small>
+    </div>
+  </div>
+  <div class="actions">
+    <a class="btn" href="./PAN PACIFIC DEFENSE CORPS.html">Inicio</a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <h1>Cuestionario de Compatibilidad para Pilotos Novatos</h1>
+    <form id="compatibilityForm">
+        <div class="question">
+            <label>Nombre del piloto:</label>
+            <input type="text" name="nombre" required>
+        </div>
+
+        <!-- Preguntas Especializadas con respuestas elaboradas -->
+        <script>
+        const form = document.getElementById('compatibilityForm');
+        const preguntas = [
+          "Cuando el Kaiju aparece por primera vez, ¿cómo reaccionas?",
+          "Si tu copiloto da un comando inesperado, ¿cómo respondes?",
+          "Durante un ataque prolongado, ¿cómo mantienes la concentración?",
+          "Si hay una falla menor en los sistemas, ¿qué haces?",
+          "Al recibir instrucciones de un piloto experimentado, ¿cómo aplicas lo aprendido?",
+          "Si la sincronización con tu copiloto es difícil, ¿cómo actúas?",
+          "Cuando la alarma suena, ¿cómo priorizas tus acciones?",
+          "Durante maniobras complejas, ¿cómo mantienes coordinación?",
+          "Si el Jaeger sufre daño leve, ¿cómo reaccionas?",
+          "Si observas peligro cercano a civiles, ¿qué haces?"
+        ];
+
+        const respuestas = [
+          [
+            {value:10,text:"Mantengo la calma, evalúo la situación y sigo el plan de combate."},
+            {value:7,text:"Me pongo alerta pero actúo con cuidado siguiendo instrucciones."},
+            {value:4,text:"Me desconcentro, necesito un momento para recomponerme."},
+            {value:0,text:"Pierdo la calma y actúo impulsivamente."}
+          ],
+          [
+            {value:10,text:"Me adapto de inmediato, ajustando mis movimientos con el copiloto."},
+            {value:7,text:"Me tomo un momento, luego sincronizo acciones."},
+            {value:4,text:"Me cuesta seguir y cometo errores menores."},
+            {value:0,text:"No puedo coordinarme y arriesgo la operación."}
+          ],
+          [
+            {value:10,text:"Bloqueo distracciones y mantengo enfoque absoluto en controles y copiloto."},
+            {value:7,text:"Me esfuerzo por mantener la concentración, aunque me fatigo un poco."},
+            {value:4,text:"Pierdo foco a veces, necesito recordar mis objetivos."},
+            {value:0,text:"No puedo concentrarme y cometo errores graves."}
+          ],
+          [
+            {value:10,text:"Comunico el problema y ajusto controles según el protocolo."},
+            {value:7,text:"Intento solucionar mientras sigo operando con cuidado."},
+            {value:4,text:"Me frustro pero sigo intentando."},
+            {value:0,text:"Ignoro la falla y arriesgo al Jaeger."}
+          ],
+          [
+            {value:10,text:"Aplico cada instrucción con precisión y atento a consejos."},
+            {value:7,text:"Aplico la mayoría, ajustando detalles según la situación."},
+            {value:4,text:"Aplico parcialmente y necesito corrección."},
+            {value:0,text:"No logro seguir instrucciones correctamente."}
+          ],
+          [
+            {value:10,text:"Mantengo paciencia y sigo sincronización paso a paso."},
+            {value:7,text:"Intento sincronizar, con ligeros errores iniciales."},
+            {value:4,text:"Me cuesta mantener coordinación y hay fallos frecuentes."},
+            {value:0,text:"Pierdo sincronización constantemente, afectando la misión."}
+          ],
+          [
+            {value:10,text:"Analizo prioridades y ejecuto según protocolos de emergencia."},
+            {value:7,text:"Sigo instrucciones, aunque con pequeñas dudas."},
+            {value:4,text:"Me confundo entre acciones y pierdo tiempo valioso."},
+            {value:0,text:"No sé qué hacer, comprometiendo seguridad."}
+          ],
+          [
+            {value:10,text:"Mantengo equilibrio y coordinación exacta con copiloto y sistemas."},
+            {value:7,text:"Logro coordinar pero con leves ajustes necesarios."},
+            {value:4,text:"La coordinación falla a veces y necesito corrección."},
+            {value:0,text:"Pierdo control de maniobra y pongo riesgo la misión."}
+          ],
+          [
+            {value:10,text:"Mantengo control completo, priorizando seguridad y objetivos."},
+            {value:7,text:"Sigo operando con precaución y ajustando movimientos."},
+            {value:4,text:"Me preocupo y pierdo eficiencia momentáneamente."},
+            {value:0,text:"No puedo reaccionar correctamente y comprometo operación."}
+          ],
+          [
+            {value:10,text:"Actúo rápidamente para alejar civiles del peligro mientras informo al copiloto."},
+            {value:7,text:"Intento proteger y coordinar con copiloto, aunque con leves retrasos."},
+            {value:4,text:"Me concentro en controles y a veces descuido la seguridad civil."},
+            {value:0,text:"No logro reaccionar y los civiles quedan en riesgo."}
+          ]
+        ];
+
+        for(let i=0; i<preguntas.length; i++){
+          const div = document.createElement('div');
+          div.className = 'question';
+          let optionsHTML = '';
+          for(let r of respuestas[i]){
+            optionsHTML += `<option value="${r.value}">${r.text}</option>`;
+          }
+          div.innerHTML = `<label>${i+1}. ${preguntas[i]}</label>
+          <select name="q${i+1}">
+            ${optionsHTML}
+          </select>`;
+          form.insertBefore(div, form.querySelector('button'));
+        }
+        </script>
+
+        <button type="button" onclick="guardarRespuestas()">Guardar Respuestas</button>
+        <button type="button" onclick="mostrarCompatibilidades()">Ver Compatibilidades (Admin)</button>
+    </form>
+
+    <div id="resultContainer"></div>
+  </div>
+</main>
+
+<script>
+const pilotos = [];
+
+function guardarRespuestas() {
+    const form = document.getElementById('compatibilityForm');
+    const nombre = form.nombre.value.trim();
+    if(!nombre){
+        alert("Por favor, ingresa el nombre del piloto.");
+        return;
+    }
+
+    const respuestas = [];
+    for(let i=1; i<=10; i++){
+        respuestas.push(parseInt(form['q'+i].value));
+    }
+
+    pilotos.push({ nombre, respuestas });
+    form.reset();
+    alert(`Respuestas de ${nombre} guardadas. Pilotos actuales: ${pilotos.length}`);
+}
+
+function compatibilidad(p1, p2) {
+    let total = 0;
+    for(let i=0; i<p1.respuestas.length; i++){
+        total += 10 - Math.abs(p1.respuestas[i] - p2.respuestas[i]);
+    }
+    return (total / (p1.respuestas.length * 10)) * 100;
+}
+
+function mostrarCompatibilidades() {
+    if(pilotos.length < 2){
+        alert("Se necesitan al menos 2 pilotos para calcular compatibilidades.");
+        return;
+    }
+
+    const adminClave = prompt("Ingrese clave de administrador:");
+    if(adminClave !== "admin123") {
+        alert("Clave de administrador incorrecta. Acceso denegado.");
+        return;
+    }
+
+    let html = "<h2>Tabla de Compatibilidades (Solo Admin)</h2>";
+    html += "<table><tr><th>Piloto A</th><th>Piloto B</th><th>Compatibilidad (%)</th></tr>";
+
+    for(let i=0; i<pilotos.length; i++){
+        for(let j=i+1; j<pilotos.length; j++){
+            const c = compatibilidad(pilotos[i], pilotos[j]).toFixed(2);
+            html += `<tr><td>${pilotos[i].nombre}</td><td>${pilotos[j].nombre}</td><td>${c}</td></tr>`;
+        }
+    }
+    html += "</table>";
+
+    document.getElementById('resultContainer').innerHTML = html;
+}
+</script>
+
+</body>
+</html>
