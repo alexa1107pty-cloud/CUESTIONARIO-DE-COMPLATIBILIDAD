@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="futurista">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PPDC • Portal Principal</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Staatliches&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#08111a; --bg2:#0a1e2f; --acc:#00f6ff; --acc2:#ff5e5e; --ink:#dffbff;
+    --card:#0a1620cc; --bdr:#00f6ff; --shadow:0 0 25px rgba(0,246,255,.35);
+    --btn:#013b41;
+  }
+
+  html, body{
+    margin:0; padding:0; font-family:'Orbitron',system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    color: var(--ink); height:100%; width:100%;
+  }
+
+  body{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position: relative; overflow: hidden;
+  }
+
+  .holo-bg::before{
+    content:""; 
+    position:fixed; inset:0; z-index:-1;
+    background-image: url('file:///C:/Users/melan/Downloads/PACIFIC%20RIM%20ROL/b3ba8042a2e7873075b0c107364c42e1.jpg');
+    background-size:cover; 
+    background-position:center; 
+    background-repeat:no-repeat;
+    background-color: rgba(0, 10, 30, 0.55);
+    mix-blend-mode: normal;
+    filter:contrast(1.1) brightness(1.05) hue-rotate(170deg) saturate(1.2);
+    animation: drift 24s linear infinite alternate;
+  }
+
+  @keyframes drift{
+    0%{transform:scale(1.05) translateY(-2%)}
+    100%{transform:scale(1.1) translateY(2%)}
+  }
+
+  h1{
+    font-size:2.5rem; text-align:center; letter-spacing:.2rem; margin-bottom:40px;
+    color:var(--acc); text-shadow:0 0 18px rgba(0,246,255,0.6);
+  }
+
+  .buttons{
+    display:flex; flex-direction:column; gap:20px; align-items:center;
+  }
+
+  .btn{
+    padding:16px 28px; border-radius:14px; font-size:1.2rem;
+    border:2px solid var(--bdr); background:var(--btn); color:var(--ink);
+    cursor:pointer; font-weight:700; text-transform:uppercase; box-shadow:var(--shadow);
+    transition:all .25s ease; text-decoration:none; text-align:center;
+  }
+  .btn:hover{
+    filter:brightness(1.2); transform:scale(1.05);
+  }
+
+</style>
+</head>
+<body class="holo-bg">
+
+<h1>PAN PACIFIC DEFENSE CORPS</h1>
+
+<div class="buttons">
+  <a href="./BASEDATA PPDC-JAEGERS.html" class="btn">Unidad Jaegers</a>
+  <a href="./BASEDATA PPDC-PILOTOS.html" class="btn">Expedientes de Pilotos</a>
+  <a href="./RANGOS ALTOS.html" class="btn">Altos Mandos</a>
+  <a href="file:///C:/Users/melan/Downloads/PACIFIC%20RIM%20ROL/CUESTIONARIO%20DE%20COMPLATIBILIDAD.html" class="btn">Cuestionario de Compatibilidad</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="futurista">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPDC • Base de Pilotos</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Staatliches&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#08111a; --bg2:#0a1e2f; --acc:#00f6ff; --acc2:#ff5e5e; --ink:#dffbff;
+  --card:#0a1620cc; --bdr:#00f6ff; --shadow:0 0 25px rgba(0,246,255,.35);
+  --badge:#0cc; --btn:#013b41;
+  --bg-url: url('C:/Users/melan/Downloads/PACIFIC RIM ROL/fondo.jpg');
+}
+*{box-sizing:border-box;}
+html,body{height:100%; margin:0; padding:0;}
+body{
+  font-family:'Orbitron',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color:var(--ink);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:flex; flex-direction:column; align-items:center;
+}
+.holo-bg::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image: var(--bg-url);
+  background-size:cover; background-position:center;
+  mix-blend-mode:screen; opacity:.25;
+  filter:contrast(1.1) brightness(1.15) hue-rotate(170deg) saturate(1.2);
+  animation: drift 24s linear infinite alternate;
+  pointer-events:none; z-index:-2;
+}
+@keyframes drift{0%{transform:scale(1.05) translateY(-2%)}100%{transform:scale(1.1) translateY(2%)}}
+
+header{
+  display:flex; gap:16px; align-items:center; justify-content:space-between;
+  padding:18px 24px; border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky; top:0; backdrop-filter:blur(6px);
+  background:linear-gradient(180deg, rgba(0,0,0,.45), transparent); z-index:5;
+  width:100%;
+}
+.ppdc{display:flex; align-items:center; gap:12px;}
+.logo-img{width:42px; height:42px; object-fit:contain;}
+.titles h1{margin:0; font-size:1.4rem; letter-spacing:.2rem; color:var(--acc);}
+.titles small{opacity:.8; letter-spacing:.18rem;}
+.actions .btn{
+  border:1px solid var(--bdr); background:var(--btn); color:var(--ink);
+  padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700;
+  box-shadow:var(--shadow); text-transform:uppercase; text-decoration:none;
+}
+.actions .btn:hover{filter:brightness(1.15);}
+
+main{padding:26px 20px 60px; max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center;}
+.carousel-container{
+  position:relative; perspective:1500px; width:100%; max-width:920px; height:360px;
+  display:flex; align-items:center; justify-content:center; margin-top:30px;
+}
+.carousel{
+  width:520px; height:320px; transform-style: preserve-3d; transition: transform 1s;
+  position:relative;
+}
+.card{
+  background:var(--card); border:2px solid var(--bdr); border-radius:16px;
+  box-shadow:var(--shadow); position:absolute; top:0; left:0; width:100%; height:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; overflow:hidden; padding:14px;
+  cursor:pointer;
+  transition: transform .6s ease, opacity .6s ease;
+}
+.card .thumb{height:160px; display:grid; place-items:center; background:linear-gradient(180deg, rgba(255,255,255,.04), transparent); width:100%;}
+.card .thumb img{max-width:92%; max-height:140px; filter:drop-shadow(0 0 10px var(--acc));}
+.card h3{margin:10px 0 4px; text-align:center;}
+.badge{font-family:'Staatliches'; font-size:.9rem; color:#001; background:var(--badge); padding:2px 8px; border-radius:6px; margin-bottom:6px;}
+.meta{margin:6px 0 10px; font-size:.9rem; opacity:.9; text-align:center;}
+.controls{position:absolute; bottom:10px; width:100%; display:flex; justify-content:center; gap:10px;}
+.carousel-btn{background:var(--btn); color:var(--ink); border:1px solid var(--bdr); border-radius:8px; padding:8px 14px; cursor:pointer; font-weight:700; box-shadow:var(--shadow);}
+
+/* sección de claves */
+.claves-wrap{margin-top:18px; display:flex; gap:12px; align-items:center;}
+.clave-btn{background:var(--btn); color:var(--ink); border:1px solid var(--bdr); padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; box-shadow:var(--shadow);}
+.claves-list{margin-top:12px; background:var(--card); border:1px solid rgba(255,255,255,.04); padding:12px; border-radius:10px; display:none; max-width:720px; width:100%;}
+
+.modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:20px;}
+.modal.show{display:flex;}
+.scrim{position:absolute; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(4px);}
+.dialog{position:relative; width:min(620px, 94vw); background:var(--card);
+  border:2px solid var(--bdr); border-radius:14px; box-shadow:0 0 25px rgba(0,246,255,.35); padding:18px 16px 16px; z-index:2;}
+.dialog h4{margin:0 0 8px; color:var(--acc);}
+.hr{height:1px; background:linear-gradient(90deg, transparent, var(--bdr), transparent); margin:10px 0 14px;}
+.closeX{position:absolute; right:10px; top:8px; border:none; background:transparent; color:var(--ink); font-size:1.2rem; cursor:pointer;}
+.details{margin-top:10px; font-size:.95rem;}
+.row{display:flex; gap:10px; align-items:center;}
+input[type="password"]{flex:1; padding:10px 12px; border-radius:10px; border:1px solid var(--bdr); background:#0009; color:var(--ink); font-family:inherit; letter-spacing:.2rem;}
+.err{color:var(--acc2); font-size:.9rem; min-height:1.2em; margin-top:8px;}
+@media (max-width:640px){
+  .carousel{width:320px; height:260px;}
+  .card .thumb{height:120px;}
+}
+</style>
+</head>
+<body class="holo-bg">
+<header>
+  <div class="ppdc">
+    <img src="C:/Users/melan/Downloads/PACIFIC RIM ROL/LOGO PPDC.jpg" class="logo-img" alt="Logo PPDC">
+    <div class="titles">
+      <h1>PILOTOS</h1>
+      <small>PAN PACIFIC DEFENSE CORPS</small>
+    </div>
+  </div>
+  <div class="actions">
+    <a class="btn" href="./PAN PACIFIC DEFENSE CORPS.html">Inicio</a>
+  </div>
+</header>
+
+<main>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel"></div>
+  </div>
+
+  <div class="controls">
+    <button class="carousel-btn" id="prev">⟨</button>
+    <button class="carousel-btn" id="next">⟩</button>
+  </div>
+
+  <div class="claves-wrap">
+    <button class="clave-btn" id="toggleClaves">Mostrar claves</button>
+  </div>
+
+  <div class="claves-list" id="clavesList" aria-hidden="true">
+    <!-- Aquí se mostrarán las claves (puedes editarlas) -->
+    <strong>Claves de acceso de pilotos:</strong>
+    <div style="margin-top:8px;">
+      <div><strong>Raleigh Becket</strong> — RB-001</div>
+      <div><strong>Mako Mori</strong> — MM-002</div>
+      <div><strong>Herc Hansen</strong> — HH-003</div>
+      <div><strong>Amara Namani</strong> — AN-004</div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="scrim" id="scrim"></div>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="closeX" id="closeX">✕</button>
+    <h4 id="modalTitle">Acceso restringido</h4>
+    <div class="hr"></div>
+    <div class="row">
+      <input id="codeInput" type="password" placeholder="INGRESE CÓDIGO DEL PILOTO" autocomplete="off"/>
+      <button class="btn" id="btnValidar">Validar</button>
+    </div>
+    <div class="err" id="err"></div>
+    <div class="details" id="details" hidden></div>
+  </div>
+</div>
+
+<script>
+/* Datos de pilotos */
+const PILOTOS = [
+  {id:"pilot1", nombre:"Raleigh Becket", rango:"Capitán", pais:"EE.UU.", estado:"Activo", thumb:"https://via.placeholder.com/500x260?text=Raleigh+Becket", codigo:"RB-001", avanzado:{edad:32, altura:"1.85 m", experiencia:"Veterano de 3 despliegues", especialidad:"Mark-5 & Mark-6", notas:"Alta compatibilidad con Gipsy Avenger"}},
+  {id:"pilot2", nombre:"Mako Mori", rango:"Teniente", pais:"Japón", estado:"Activo", thumb:"https://via.placeholder.com/500x260?text=Mako+Mori", codigo:"MM-002", avanzado:{edad:28, altura:"1.68 m", experiencia:"Veterana de 2 despliegues", especialidad:"Mark-6", notas:"Alta coordinación con Raleigh Becket"}},
+  {id:"pilot3", nombre:"Herc Hansen", rango:"Sargento", pais:"Dinamarca", estado:"Activo", thumb:"https://via.placeholder.com/500x260?text=Herc+Hansen", codigo:"HH-003", avanzado:{edad:35, altura:"1.90 m", experiencia:"Veterano de 4 despliegues", especialidad:"Mark-5 & Mark-7", notas:"Especialista en cañones de plasma"}},
+  {id:"pilot4", nombre:"Amara Namani", rango:"Teniente", pais:"India", estado:"En entrenamiento", thumb:"https://via.placeholder.com/500x260?text=Amara+Namani", codigo:"AN-004", avanzado:{edad:26, altura:"1.70 m", experiencia:"1 despliegue", especialidad:"Mark-7", notas:"Rápida adaptación a nuevos sistemas"}}
+];
+
+/* DOM refs */
+const carousel = document.getElementById('carousel');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+const toggleClavesBtn = document.getElementById('toggleClaves');
+const clavesList = document.getElementById('clavesList');
+
+const modal = document.getElementById('modal');
+const scrim = document.getElementById('scrim');
+const closeX = document.getElementById('closeX');
+const codeInput = document.getElementById('codeInput');
+const btnValidar = document.getElementById('btnValidar');
+const err = document.getElementById('err');
+const details = document.getElementById('details');
+
+let angle = 0;
+let currentPilot = null;
+
+/* Construir las cartas */
+function buildCards(){
+  carousel.innerHTML = '';
+  PILOTOS.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.index = i;
+    card.innerHTML = `
+      <div class="thumb"><img src="${p.thumb}" alt="${p.nombre}"></div>
+      <h3>${p.nombre}</h3>
+      <div class="badge">${p.rango}</div>
+      <div class="meta">${p.pais} | Estado: ${p.estado}</div>
+    `;
+    card.addEventListener('click', () => {
+      currentPilot = p;
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden','false');
+      document.getElementById('modalTitle').textContent = p.nombre;
+      details.hidden = true;
+      codeInput.value = '';
+      err.textContent = '';
+      codeInput.focus();
+    });
+    carousel.appendChild(card);
+  });
+}
+
+/* Posicionar en círculo 3D */
+function rotateCarousel(){
+  const cards = carousel.querySelectorAll('.card');
+  const num = cards.length || 1;
+  const theta = 360 / num;
+  cards.forEach((card, i) => {
+    const a = (i * theta + angle) % 360;
+    card.style.transform = `rotateY(${a}deg) translateZ(500px)`;
+    // visibilidad / opacidad dependiendo del ángulo (mejora lectura)
+    const normalized = Math.abs(((a + 180) % 360) - 180);
+    const opacity = normalized > 90 ? 0.25 : 1 - (normalized / 180);
+    card.style.opacity = opacity;
+  });
+}
+
+/* Prev/Next: mover 1 paso (360/num) para que sea "pequeño" */
+prevBtn.addEventListener('click', () => {
+  const num = PILOTOS.length || 1;
+  const step = 360 / num;
+  angle -= step;
+  rotateCarousel();
+});
+nextBtn.addEventListener('click', () => {
+  const num = PILOTOS.length || 1;
+  const step = 360 / num;
+  angle += step;
+  rotateCarousel();
+});
+
+/* Toggle mostrar claves */
+toggleClavesBtn.addEventListener('click', () => {
+  const isShown = clavesList.style.display === 'block';
+  clavesList.style.display = isShown ? 'none' : 'block';
+  clavesList.setAttribute('aria-hidden', isShown ? 'true' : 'false');
+});
+
+/* Modal controles */
+closeX.addEventListener('click', () => {
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden','true');
+});
+scrim.addEventListener('click', () => {
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden','true');
+});
+
+/* Validación del código (muestra info avanzada) */
+btnValidar.addEventListener('click', validarCodigo);
+codeInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') validarCodigo(); });
+
+function validarCodigo(){
+  if(!currentPilot) return;
+  if(codeInput.value.trim() === currentPilot.codigo){
+    details.hidden = false;
+    details.innerHTML = `
+      <strong>Edad:</strong> ${currentPilot.avanzado.edad} años<br>
+      <strong>Altura:</strong> ${currentPilot.avanzado.altura}<br>
+      <strong>Experiencia:</strong> ${currentPilot.avanzado.experiencia}<br>
+      <strong>Especialidad:</strong> ${currentPilot.avanzado.especialidad}<br>
+      <strong>Notas:</strong> ${currentPilot.avanzado.notas}
+    `;
+    err.textContent = '';
+  } else {
+    err.textContent = 'Código incorrecto';
+    details.hidden = true;
+  }
+}
+
+/* Inicializar */
+buildCards();
+rotateCarousel();
+
+/* Reposicionar si redimensionan (evita solapamientos raros) */
+window.addEventListener('resize', rotateCarousel);
+</script>
+</body>
+</html>
